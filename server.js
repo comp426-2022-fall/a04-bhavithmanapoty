@@ -8,13 +8,15 @@ const expr = express();
 const args = minimist(process.argv.slice(2));
 const port = args.port || 5000;
 
+expr.use(express.json());
+expr.use(express.urlencoded({extended: true}));
 
-app.get('*', function (req, res) {
+expr.get('*', function (req, res) {
 res.send('404 NOT FOUND');
 });
-	
-app.post('/app/roll/', function(req, res) {
+
+expr.post('/app/roll/', function(req, res) {
 res.send(roll(req.body.sides, req.body.dice, req.body.rolls));
 });
-	
-app.listen(port);
+
+expr.listen(port);
